@@ -9,9 +9,10 @@ class MaxFlexCodepanel extends IPSModule {
 		
 		//These lines are parsed on Symcon Startup or Instance creation
 		//You cannot use variables here. Just static values.
+		
+		$this->RegisterPropertyInteger("ID", 1);
 
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
-		
 
 		$this->RegisterTimer("SetClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
 
