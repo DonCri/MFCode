@@ -15,7 +15,7 @@ class MaxFlexCodepanel extends IPSModule {
 
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
 
-		$this->RegisterTimer("SetClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
@@ -50,7 +50,7 @@ class MaxFlexCodepanel extends IPSModule {
 			$timerintervalMillisecond = $timerintervalSecond * 1000;
 			$value = $data->Values->Value;
 			if($value > 0) {
-				$this->SetTimerInterval("SetClearCodeTimer", $timerintervalMillisecond);
+				$this->SetTimerInterval("ClearCodeTimer", $timerintervalMillisecond);
 				$typedCode = GetValue($this->GetIDForIdent("CODE"));
 				switch($value) {
 					case 1:
@@ -84,11 +84,17 @@ class MaxFlexCodepanel extends IPSModule {
 					break;
 
 					case 64:
-
+						$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+						$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+						$securityInstanceId = $securityInstance[0];
+						$password = IPS_GetProperty($securityInstanceId, "Password");
+						$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId)
+						SetValue($securityModus, 1);
 					break;
 
 					case 128:
 						SetValue($this->GetIDForIdent("CODE"), 0);
+						$this->SetTimerInterval("ClearCodeTimer", 0);
 					break;
 				}
 			}
@@ -97,27 +103,7 @@ class MaxFlexCodepanel extends IPSModule {
 	
 	public function SetClearCodeTimer() {
 		SetValue($this->GetIDForIdent("CODE"), 0);
-		$this->SetTimerInterval("SetClearCodeTimer", 0);
-	}
-
-	
-	
-	public function SetRocker($Value) {
-
-		$oldValue = GetValue($this->GetIDForIdent("RockerControl"));
-
-		if ($Value > $oldValue) {
-			for($i = 0; $i < ($Value - $oldValue); $i++) {
-				$this->PulseUp(GetValue($this->GetIDForIdent("SendingOnLockLevel")));
-			}
-		}
-		else {
-			for($i = 0; $i < abs($oldValue - $Value); $i++) {
-				$this->PulseDown(GetValue($this->GetIDForIdent("SendingOnLockLevel")));
-			}
-		}
-
-		SetValue($this->GetIDForIdent("RockerControl"), $Value);
+		$this->SetTimerInterval("ClearCodeTimer", 0);
 	}
 
 	/* 
