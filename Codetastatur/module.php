@@ -42,17 +42,16 @@ class MaxFlexCodepanel extends IPSModule {
 		$data = json_decode($JSONString);
 		
 		$this->SendDebug("BufferIn", print_r($data->Values, true), 0);
-
+		$value = $data->Values->Value;
+					SetValue($this->GetIDForIdent("CODE"), $value);
 		//No ID check necessary, check is done by receiveFilter "DominoSwissBase.php->ApplyChanges()"
-		if ($data->Values->Priority >= $this->GetHighestLockLevel()) {
 			$command = $data->Values->Command;
-			switch ($command) {
+			/*switch ($command) {
 				case 42:
 					$value = $data->Values->Value;
 					SetValue($this->GetIDForIdent("CODE"), $value);
 				break;
-			}
-		}
+			}*/
 	}
 	
 	public function SetClearCodeTimer() {
