@@ -109,7 +109,8 @@ class MaxFlexCodepanel extends IPSModule {
 
 	public function SelectMode() {
 		$this->SetTimerInterval("SelectModeTimer", 0);
-		switch($typedCode) {
+		$mode = GetValue($this->GetIDForIdent("CODE"));
+		switch($mode) {
 			case 1:
 				SetValue($securityModus, 0);
 				SetValue($this->GetIDForIdent("CODE"), 0);
