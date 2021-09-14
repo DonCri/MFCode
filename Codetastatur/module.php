@@ -90,7 +90,7 @@ class MaxFlexCodepanel extends IPSModule {
 						$securityInstanceId = $securityInstance[0];
 						$securityPassword = IPS_GetProperty($securityInstanceId, "Password");
 						$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-						
+						echo($securityPassword);
 						if($typedCode == $securityPassword) {
 							SetValue($this->GetIDForIdent("CODE"), 0);
 							$this->SetTimerInterval("SelectModeTimer", 5);
@@ -110,6 +110,10 @@ class MaxFlexCodepanel extends IPSModule {
 
 	public function SelectMode() {
 		$this->SetTimerInterval("SelectModeTimer", 0);
+		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+		$securityInstanceId = $securityInstance[0];
+		$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
 		$mode = GetValue($this->GetIDForIdent("CODE"));
 		switch($mode) {
 			case 1:
