@@ -92,6 +92,7 @@ class MaxFlexCodepanel extends IPSModule {
 						
 						if($typedCode == $securityPassword) {
 							SetValue($this->GetIDForIdent("CODE"), 0);
+							sleep(2);
 							switch($typedCode) {
 								case 1:
 									SetValue($securityModus, 0);
