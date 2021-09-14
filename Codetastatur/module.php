@@ -48,8 +48,45 @@ class MaxFlexCodepanel extends IPSModule {
 			$value = $data->Values->Value;
 			if($value > 0) {
 				$typedCode = GetValue($this->GetIDForIdent("CODE"));
-				$typedCode .= $value;
-				SetValue($this->GetIDForIdent("CODE"), $typedCode);
+				switch($value) {
+					case 1:
+						$typedCode .= 1;
+						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+					break;
+
+					case 2:
+						$typedCode .= 2;
+						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+					break;
+
+					case 4:
+						$typedCode .= 3;
+						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+					break;
+
+					case 8:
+						$typedCode .= 4;
+						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+					break;
+
+					case 16:
+						$typedCode .= 5;
+						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+					break;
+
+					case 32:
+						$typedCode .= 6;
+						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+					break;
+
+					case 64:
+
+					break;
+
+					case 128:
+						SetValue($this->GetIDForIdent("CODE"), 0);
+					break;
+				}
 			}
 		}
 	}
