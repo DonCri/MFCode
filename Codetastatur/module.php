@@ -123,9 +123,12 @@ class MaxFlexCodepanel extends IPSModule {
 			break;
 
 			case 2:
+				echo("Hallo");
+				/*
 				SetValue($securityEnterPasswordId, $securityPassword);
 				SetValue($securityModus, 1);
 				SetValue($this->GetIDForIdent("CODE"), 0);
+				*/
 			break;
 
 			case 3:
