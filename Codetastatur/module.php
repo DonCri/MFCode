@@ -43,7 +43,7 @@ class MaxFlexCodepanel extends IPSModule {
 		
 		$this->SendDebug("BufferIn", print_r($data->Values, true), 0);
 		$id = $data->Values->ID;
-		if($id == this->ReadPropertyInteger("ID")) {
+		if($id == $this->ReadPropertyInteger("ID")) {
 			$value = $data->Values->Value;
 			SetValue($this->GetIDForIdent("CODE"), $value);
 		}
