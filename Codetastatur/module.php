@@ -14,7 +14,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterPropertyInteger("TimerInterval", 15);
 
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
-		$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
+		//$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
 		$this->RegisterTimer("SelectModeTimer", 0, 'BRELAG_SelectMode($_IPS[\'TARGET\']);');
@@ -97,7 +97,7 @@ class MaxFlexCodepanel extends IPSModule {
 							//SetValue($this->GetIDForIdent("CODEOK"), true);
 							SetValue($this->GetIDForIdent("CODE"), 0);
 							$mode = GetValue($this->GetIDForIdent("CODE"));
-							$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
+							//$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
 							if($codeOK) {
 								switch($mode) {
 									case 1:
