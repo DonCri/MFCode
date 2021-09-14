@@ -94,7 +94,7 @@ class MaxFlexCodepanel extends IPSModule {
 						$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
 
 						if($typedCode == $securityPassword) {
-							SetValue($this->GetIDForIdent("CODEOK"), true);
+							//SetValue($this->GetIDForIdent("CODEOK"), true);
 							SetValue($this->GetIDForIdent("CODE"), 0);
 							$mode = GetValue($this->GetIDForIdent("CODE"));
 							$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
@@ -104,21 +104,21 @@ class MaxFlexCodepanel extends IPSModule {
 										SetValue($securityEnterPasswordId, $securityPassword);
 										SetValue($securityModus, 0);
 										SetValue($this->GetIDForIdent("CODE"), 0);
-										SetValue($this->GetIDForIdent("CODEOK"), false);
+										//SetValue($this->GetIDForIdent("CODEOK"), false);
 									break;
 	
 									case 2:
 										SetValue($securityEnterPasswordId, $securityPassword);
 										SetValue($securityModus, 1);
 										SetValue($this->GetIDForIdent("CODE"), 0);
-										SetValue($this->GetIDForIdent("CODEOK"), false);
+										//SetValue($this->GetIDForIdent("CODEOK"), false);
 									break;
 	
 									case 3:
 										SetValue($securityEnterPasswordId, $securityPassword);
 										SetValue($securityModus, 3);
 										SetValue($this->GetIDForIdent("CODE"), 0);
-										SetValue($this->GetIDForIdent("CODEOK"), false);
+										//SetValue($this->GetIDForIdent("CODEOK"), false);
 									break;
 								}
 							}
@@ -131,7 +131,7 @@ class MaxFlexCodepanel extends IPSModule {
 
 					case 128:
 						SetValue($this->GetIDForIdent("CODE"), 0);
-						SetValue($this->GetIDForIdent("CODEOK"), false);
+						//SetValue($this->GetIDForIdent("CODEOK"), false);
 						$this->SetTimerInterval("ClearCodeTimer", 0);
 					break;
 				}
@@ -194,5 +194,4 @@ class MaxFlexCodepanel extends IPSModule {
 
 }
 ?>
-
 
