@@ -48,7 +48,7 @@ class MaxFlexCodepanel extends IPSModule {
 			$value = $data->Values->Value;
 			if($value > 0) {
 				$typedCode = GetValue($this->GetIDForIdent("CODE"));
-				$typedCode += $value;
+				$typedCode .= $value;
 				SetValue($this->GetIDForIdent("CODE"), $typedCode);
 			}
 		}
