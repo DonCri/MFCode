@@ -16,6 +16,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("SelectModeTimer", 5, 'BRELAG_SelectMode($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
@@ -92,24 +93,7 @@ class MaxFlexCodepanel extends IPSModule {
 						
 						if($typedCode == $securityPassword) {
 							SetValue($this->GetIDForIdent("CODE"), 0);
-							sleep(2);
-							switch($typedCode) {
-								case 1:
-									SetValue($securityModus, 0);
-									SetValue($this->GetIDForIdent("CODE"), 0);
-								break;
-
-								case 2:
-									SetValue($securityModus, 1);
-									SetValue($this->GetIDForIdent("CODE"), 0);
-								break;
-
-								case 3:
-									SetValue($securityModus, 3);
-									SetValue($this->GetIDForIdent("CODE"), 0);
-								break;
-							}
-							
+							$this->SetTimerInterval("SelectModeTimer", 5);
 						}
 						
 					break;
@@ -120,6 +104,26 @@ class MaxFlexCodepanel extends IPSModule {
 					break;
 				}
 			}
+		}
+	}
+
+	public function SelectMode() {
+		$this->SetTimerInterval("SelectModeTimer", 0);
+		switch($typedCode) {
+			case 1:
+				SetValue($securityModus, 0);
+				SetValue($this->GetIDForIdent("CODE"), 0);
+			break;
+
+			case 2:
+				SetValue($securityModus, 1);
+				SetValue($this->GetIDForIdent("CODE"), 0);
+			break;
+
+			case 3:
+				SetValue($securityModus, 3);
+				SetValue($this->GetIDForIdent("CODE"), 0);
+			break;
 		}
 	}
 	
