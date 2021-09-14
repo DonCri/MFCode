@@ -87,9 +87,30 @@ class MaxFlexCodepanel extends IPSModule {
 						$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
 						$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
 						$securityInstanceId = $securityInstance[0];
-						$password = IPS_GetProperty($securityInstanceId, "Password");
+						$securityPassword = IPS_GetProperty($securityInstanceId, "Password");
 						$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-						SetValue($securityModus, 1);
+						
+						if($typedCode == $securityPassword) {
+							SetValue($this->GetIDForIdent("CODE"), 0);
+							switch($typedCode) {
+								case 1:
+									SetValue($securityModus, 0);
+									SetValue($this->GetIDForIdent("CODE"), 0);
+								break;
+
+								case 2:
+									SetValue($securityModus, 1);
+									SetValue($this->GetIDForIdent("CODE"), 0);
+								break;
+
+								case 3:
+									SetValue($securityModus, 3);
+									SetValue($this->GetIDForIdent("CODE"), 0);
+								break;
+							}
+							
+						}
+						
 					break;
 
 					case 128:
