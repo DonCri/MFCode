@@ -94,7 +94,7 @@ class MaxFlexCodepanel extends IPSModule {
 						$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
 
 						if($typedCode == $securityPassword) {
-							SetValue($this->GetIDForIdent("CODEOK", true));
+							SetValue($this->GetIDForIdent("CODEOK"), true));
 							SetValue($this->GetIDForIdent("CODE"), 0);
 							$mode = GetValue($this->GetIDForIdent("CODE"));
 							$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
@@ -192,3 +192,5 @@ class MaxFlexCodepanel extends IPSModule {
 
 }
 ?>
+
+
