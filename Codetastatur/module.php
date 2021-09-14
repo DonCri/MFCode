@@ -173,7 +173,7 @@ class MaxFlexCodepanel extends IPSModule {
 
 	public function SetClearCodeTimer() {
 		SetValue($this->GetIDForIdent("CODE"), 0);
-		SetValue($this->GetIDForIdent("CODEOK"), false);
+		//SetValue($this->GetIDForIdent("CODEOK"), false);
 		$this->SetTimerInterval("ClearCodeTimer", 0);
 	}
 
