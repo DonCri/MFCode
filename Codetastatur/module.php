@@ -11,6 +11,7 @@ class MaxFlexCodepanel extends IPSModule {
 		//You cannot use variables here. Just static values.
 		
 		$this->RegisterPropertyInteger("ID", 1);
+		$this->RegisterPropertyInteger("TimerInterval", 15);
 
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
 
@@ -45,8 +46,11 @@ class MaxFlexCodepanel extends IPSModule {
 		$id = $data->Values->ID;
 
 		if($id == $this->ReadPropertyInteger("ID")) {
+			$timerintervalSecond = $this->ReadPropertyInteger("TimerInterval");
+			$timerintervalMillisecond = $timerintervalSecond * 1000;
 			$value = $data->Values->Value;
 			if($value > 0) {
+				$this->SetTimerInterval("SetClearCodeTimer", $timerintervalMillisecond);
 				$typedCode = GetValue($this->GetIDForIdent("CODE"));
 				switch($value) {
 					case 1:
@@ -92,7 +96,7 @@ class MaxFlexCodepanel extends IPSModule {
 	}
 	
 	public function SetClearCodeTimer() {
-		SetValue($this->GetIDForIdent("Status"), false);
+		SetValue($this->GetIDForIdent("CODE"), 0);
 		$this->SetTimerInterval("SetClearCodeTimer", 0);
 	}
 
