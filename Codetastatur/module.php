@@ -42,8 +42,12 @@ class MaxFlexCodepanel extends IPSModule {
 		$data = json_decode($JSONString);
 		
 		$this->SendDebug("BufferIn", print_r($data->Values, true), 0);
-		$value = $data->Values->Value;
-					SetValue($this->GetIDForIdent("CODE"), $value);
+		$id = $data->Values->ID;
+		if($id == this->ReadPropertyInteger("ID")) {
+			$value = $data->Values->Value;
+			SetValue($this->GetIDForIdent("CODE"), $value);
+		}
+		
 		//No ID check necessary, check is done by receiveFilter "DominoSwissBase.php->ApplyChanges()"
 			$command = $data->Values->Command;
 			/*switch ($command) {
