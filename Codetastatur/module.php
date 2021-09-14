@@ -16,7 +16,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
-		$this->RegisterTimer("SelectModeTimer", 5, 'BRELAG_SelectMode($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("SelectModeTimer", 0, 'BRELAG_SelectMode($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
