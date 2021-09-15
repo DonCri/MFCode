@@ -16,6 +16,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("wrongCodeTimer", 0, 'BRELAG_TurnOffLED($_IPS[\'TARGET\'], 7);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
@@ -128,6 +129,7 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetTimerInterval("ClearCodeTimer", 0);
+								$this->wrongCode();
 							}
 							
 						break;
@@ -164,6 +166,14 @@ class MaxFlexCodepanel extends IPSModule {
 			case 3:
 				$this->SetLED(2);
 			break;
+
+			case 3:
+				$this->SetLED(2);
+			break;
+
+			case 7:
+				$this->SetLED(6);
+			break;
 		}
 	}
 
@@ -181,6 +191,10 @@ class MaxFlexCodepanel extends IPSModule {
 				$this->SetLED(10);
 			break;
 		}
+	}
+
+	public function wrongCode() {
+		$this->SetLED(22);
 	}
 
 	/* 
