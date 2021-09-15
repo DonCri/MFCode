@@ -157,7 +157,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->SetTimerInterval("ClearCodeTimer", 0);
 	}
 
-	public function SwitchLED($LEDnumber, $State) {
+	public function SwitchLED(int $LEDnumber, int $State) {
 
 		$this->SetLED($LEDnumber - 1 + $State * 8);
 
