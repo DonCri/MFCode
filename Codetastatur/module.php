@@ -81,9 +81,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 1);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								$this->SetLED(0);
+								//$this->SetLED(0);
 								$this->SetLED(9);
-								$this->SetLED(2);
+								//$this->SetLED(2);
 							} else{
 								$typedCode .= 2;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -160,6 +160,7 @@ class MaxFlexCodepanel extends IPSModule {
 	}
 
 	public function SendCommand(int $Instruction, int $Command, int $Value, int $Priority) {
+		// CheckNr 2942145
 		$id = $this->ReadPropertyInteger("ID");
 		return $this->SendDataToParent(json_encode(Array("DataID" => "{C24CDA30-82EE-46E2-BAA0-13A088ACB5DB}", "Instruction" => $Instruction, "ID" => $id, "Command" => $Command, "Value" => $Value, "Priority" => $Priority)));
 	}
