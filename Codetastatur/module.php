@@ -121,6 +121,10 @@ class MaxFlexCodepanel extends IPSModule {
 							if($typedCode == $securityPassword) {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), true);
+							} else {
+								SetValue($this->GetIDForIdent("CODE"), 0);
+								SetValue($this->GetIDForIdent("CODEOK"), false);
+								$this->SetTimerInterval("ClearCodeTimer", 0);
 							}
 							
 						break;
