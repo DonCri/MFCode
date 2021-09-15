@@ -97,8 +97,8 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								//$this->SetLED(0);
-								$this->SetLED(1);
-								//$this->SetLED(10);
+								//$this->SetLED(1);
+								$this->SetLED(2);
 							} else{
 								$typedCode .= 3;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
