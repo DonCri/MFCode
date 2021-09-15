@@ -174,13 +174,6 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->SwitchLED(7, self::LED_OFF);
 	}
 
-	/* 
-		Um beim MaxFlex eine LED einzuschalten. Funktioniert nur wen der MaxFlex eine Stromspeisung beseitzt.
-	*/
-	public function SetLED(int $Value){
-		$this->SendCommand( 1, 43, $Value, 3);
-	}
-
 	public function CheckSecurityMode() {
 		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
 		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
@@ -193,9 +186,23 @@ class MaxFlexCodepanel extends IPSModule {
 		if($mode != $securityModus) {
 			SetValue($this->GetIDForIdent("SECMODE"), GetValue($securityModus));
 			$LEDnumber = $securityModus + 1;
-			$State = $securityModus + 1;
-			$this->SwitchLED($LEDnumber, $State);
+			if($securityModus == 0) {
+				$this->SwitchLED($LEDnumber, 8);
+			}
+			if($securityModus == 1) {
+				$this->SwitchLED($LEDnumber, 9);
+			}
+			if($securityModus == 2) {
+				$this->SwitchLED($LEDnumber, 10);
+			}
 		}
+	}
+
+	/* 
+		Um beim MaxFlex eine LED einzuschalten. Funktioniert nur wen der MaxFlex eine Stromspeisung beseitzt.
+	*/
+	public function SetLED(int $Value){
+		$this->SendCommand(1, 43, $Value, 3);
 	}
 
 	public function SendCommand(int $Instruction, int $Command, int $Value, int $Priority) {
