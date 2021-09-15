@@ -1,7 +1,7 @@
 <?php
 
 class MaxFlexCodepanel extends IPSModule {
-	
+
 	const LED_OFF = 0;
 	const LED_ON = 1;
 	const LED_BLINK = 2;
@@ -158,51 +158,8 @@ class MaxFlexCodepanel extends IPSModule {
 	}
 
 	public function SwitchLED(int $LEDnumber, int $State) {
-
 		$this->SetLED($LEDnumber - 1 + $State * 8);
-
-		/*
-		switch($LEDnumber) {
-			case 1:
-				$this->SetLED(0);
-			break;
-
-			case 2:
-				$this->SetLED(1);
-			break;
-
-			case 3:
-				$this->SetLED(2);
-			break;
-
-			case 3:
-				$this->SetLED(2);
-			break;
-
-			case 7:
-				$this->SetLED(6);
-				$this->SetTimerInterval("wrongCodeTimer", 0);
-			break;
-		}*/
 	}
-
-	/*
-	public function TurnOnLED($LEDnumber) {
-		switch($LEDnumber) {
-			case 1:
-				$this->SetLED(8);
-			break;
-
-			case 2:
-				$this->SetLED(9);
-			break;
-
-			case 3:
-				$this->SetLED(10);
-			break;
-		}
-	}
-	*/
 
 	public function wrongCode() {
 		$this->SetLED(22);
