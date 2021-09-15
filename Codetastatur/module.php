@@ -46,26 +46,54 @@ class MaxFlexCodepanel extends IPSModule {
 		$id = $data->Values->ID;
 
 		if($id == $this->ReadPropertyInteger("ID")) {
-			$timerintervalSecond = $this->ReadPropertyInteger("TimerInterval");
-			$timerintervalMillisecond = $timerintervalSecond * 1000;
+			// Hole das Passwort vom Alarmanlage Modul.
+				$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+				$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+				$securityInstanceId = $securityInstance[0];
+				$securityPassword = IPS_GetProperty($securityInstanceId, "Password");
+				$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
+				$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
+			// Hole aus der Konfiguration den Timer interval und rechne in Millisekunden um.	
+				$timerintervalSecond = $this->ReadPropertyInteger("TimerInterval");
+				$timerintervalMillisecond = $timerintervalSecond * 1000;
+
 			$value = $data->Values->Value;
 			if($value > 0) {
 				$this->SetTimerInterval("ClearCodeTimer", $timerintervalMillisecond);
 				$typedCode = GetValue($this->GetIDForIdent("CODE"));
+				$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
 				switch($value) {
 					case 1:
-						$typedCode .= 1;
-						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						if($codeOK) {
+							SetValue($securityEnterPasswordId, $securityPassword);
+							SetValue($securityModus, 0);
+							SetValue($this->GetIDForIdent("CODE"), 0);
+						} else{
+							$typedCode .= 1;
+							SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						}
 					break;
 
 					case 2:
-						$typedCode .= 2;
-						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						if($codeOK) {
+							SetValue($securityEnterPasswordId, $securityPassword);
+							SetValue($securityModus, 1);
+							SetValue($this->GetIDForIdent("CODE"), 0);
+						} else{
+							$typedCode .= 2;
+							SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						}
 					break;
 
 					case 4:
-						$typedCode .= 3;
-						SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						if($codeOK) {
+							SetValue($securityEnterPasswordId, $securityPassword);
+							SetValue($securityModus, 2);
+							SetValue($this->GetIDForIdent("CODE"), 0);
+						} else{
+							$typedCode .= 3;
+							SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						}
 					break;
 
 					case 8:
@@ -84,40 +112,9 @@ class MaxFlexCodepanel extends IPSModule {
 					break;
 
 					case 64:
-						$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-						$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
-						$securityInstanceId = $securityInstance[0];
-						$securityPassword = IPS_GetProperty($securityInstanceId, "Password");
-						$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
-						$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-
 						if($typedCode == $securityPassword) {
 							SetValue($this->GetIDForIdent("CODE"), 0);
 							SetValue($this->GetIDForIdent("CODEOK"), true);
-							
-							$mode = GetValue($this->GetIDForIdent("CODE"));
-
-								/*switch($mode) {
-									case 1:
-										SetValue($securityEnterPasswordId, $securityPassword);
-										SetValue($securityModus, 0);
-										SetValue($this->GetIDForIdent("CODE"), 0);
-									break;
-
-									case 2:
-										SetValue($securityEnterPasswordId, $securityPassword);
-										SetValue($securityModus, 1);
-										SetValue($this->GetIDForIdent("CODE"), 0);
-									break;
-
-									case 3:
-										SetValue($securityEnterPasswordId, $securityPassword);
-										SetValue($securityModus, 3);
-										SetValue($this->GetIDForIdent("CODE"), 0);
-									break;
-								}*/
-
-							//$this->SetTimerInterval("SelectModeTimer", 5);
 						}
 						
 					break;
