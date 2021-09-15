@@ -16,6 +16,9 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("FirstLEDoff", 0, 'BRELAG_TurnOffFirstLED($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("SecondLEDoff", 0, 'BRELAG_TurnOffSecondLED($_IPS[\'TARGET\']);');
+		$this->RegisterTimer("ThirdLEDoff", 0, 'BRELAG_TurnOffThirdLED($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
@@ -67,8 +70,8 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(8);
-								//$this->SetLED(1);
-								//$this->SetLED(2);
+								$this->SetTimerInterval("SecondLEDoff", 250);
+								$this->SetTimerInterval("ThirdLEDoff", 500);
 							} else{
 								$typedCode .= 1;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -81,9 +84,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 1);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								//$this->SetLED(0);
 								$this->SetLED(9);
-								//$this->SetLED(2);
+								$this->SetTimerInterval("FirstLEDoff", 250);
+								$this->SetTimerInterval("ThirdLEDoff", 500);
 							} else{
 								$typedCode .= 2;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -96,9 +99,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 2);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								//$this->SetLED(0);
-								//$this->SetLED(1);
 								$this->SetLED(10);
+								$this->SetTimerInterval("FirstLEDoff", 250);
+								$this->SetTimerInterval("SecondLEDoff", 500);
 							} else{
 								$typedCode .= 3;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -149,6 +152,27 @@ class MaxFlexCodepanel extends IPSModule {
 		SetValue($this->GetIDForIdent("CODE"), 0);
 		SetValue($this->GetIDForIdent("CODEOK"), false);
 		$this->SetTimerInterval("ClearCodeTimer", 0);
+	}
+
+	public function TurnOffFirstLED() {
+		$this->SetLED(0);
+		$this->SetTimerInterval("FirstLEDoff", 0);
+		$this->SetTimerInterval("SecondLEDoff", 0);
+		$this->SetTimerInterval("ThirdLEDoff", 0);
+	}
+
+	public function TurnOffSecondtLED() {
+		$this->SetLED(1);
+		$this->SetTimerInterval("FirstLEDoff", 0);
+		$this->SetTimerInterval("SecondLEDoff", 0);
+		$this->SetTimerInterval("ThirdLEDoff", 0);
+	}
+
+	public function TurnOffThirdLED() {
+		$this->SetLED(2);
+		$this->SetTimerInterval("FirstLEDoff", 0);
+		$this->SetTimerInterval("SecondLEDoff", 0);
+		$this->SetTimerInterval("ThirdLEDoff", 0);
 	}
 
 
