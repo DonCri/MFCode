@@ -70,8 +70,8 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(8);
-								$this->SetTimerInterval("SecondLEDoff", 500);
-								$this->SetTimerInterval("ThirdLEDoff", 1000);
+								$this->SetTimerInterval("SecondLEDoff", 1000);
+								$this->SetTimerInterval("ThirdLEDoff", 1500);
 							} else{
 								$typedCode .= 1;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -85,8 +85,8 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(9);
-								$this->SetTimerInterval("FirstLEDoff", 500);
-								$this->SetTimerInterval("ThirdLEDoff", 1000);
+								$this->SetTimerInterval("FirstLEDoff", 1000);
+								$this->SetTimerInterval("ThirdLEDoff", 1500);
 							} else{
 								$typedCode .= 2;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -100,8 +100,8 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(10);
-								$this->SetTimerInterval("FirstLEDoff", 500);
-								$this->SetTimerInterval("SecondLEDoff", 1000);
+								$this->SetTimerInterval("FirstLEDoff", 1000);
+								$this->SetTimerInterval("SecondLEDoff", 1500);
 							} else{
 								$typedCode .= 3;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
