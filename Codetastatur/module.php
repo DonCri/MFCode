@@ -20,15 +20,11 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
 
-	
-	
 	public function Destroy() {
 		//Never delete this line!
 		parent::Destroy();
 		
 	}
-
-	
 	
 	public function ApplyChanges() {
 		//Never delete this line!
@@ -36,8 +32,6 @@ class MaxFlexCodepanel extends IPSModule {
 
 	}
 
-	
-	
 	public function ReceiveData($JSONString) {
 
 		$data = json_decode($JSONString);
@@ -72,6 +66,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 0);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
+								$this->SetLED(8);
+								$this->SetLED(1);
+								$this->SetLED(2);
 							} else{
 								$typedCode .= 1;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -84,6 +81,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 1);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
+								$this->SetLED(0);
+								$this->SetLED(9);
+								$this->SetLED(2);
 							} else{
 								$typedCode .= 2;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -96,6 +96,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 2);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
+								$this->SetLED(0);
+								$this->SetLED(1);
+								$this->SetLED(10);
 							} else{
 								$typedCode .= 3;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -152,13 +155,14 @@ class MaxFlexCodepanel extends IPSModule {
 	/* 
 		Um beim MaxFlex eine LED einzuschalten. Funktioniert nur wen der MaxFlex eine Stromspeisung beseitzt.
 	*/
-	/*public function PulseUp(int $Priority){
-		$this->SendCommand( 1, 1, 0  , $Priority);
+	public function SetLED(int $Value){
+		$this->SendCommand( 1, 43, $Value, 3);
 	}
+
 	public function SendCommand(int $Instruction, int $Command, int $Value, int $Priority) {
 		$id = $this->ReadPropertyInteger("ID");
 		return $this->SendDataToParent(json_encode(Array("DataID" => "{C24CDA30-82EE-46E2-BAA0-13A088ACB5DB}", "Instruction" => $Instruction, "ID" => $id, "Command" => $Command, "Value" => $Value, "Priority" => $Priority)));
-	}*/
+	}
 
 }
 ?>
