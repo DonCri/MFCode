@@ -16,7 +16,6 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
-		$this->RegisterTimer("SelectModeTimer", 0, 'BRELAG_SelectMode($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
@@ -94,8 +93,29 @@ class MaxFlexCodepanel extends IPSModule {
 
 						if($typedCode == $securityPassword) {
 							SetValue($this->GetIDForIdent("CODE"), 0);
+							SetValue($this->GetIDForIdent("CODEOK"), true);
 							
-							$this->SetTimerInterval("ClearCodeTimer", 5000);
+							$mode = GetValue($this->GetIDForIdent("CODE"));
+
+								/*switch($mode) {
+									case 1:
+										SetValue($securityEnterPasswordId, $securityPassword);
+										SetValue($securityModus, 0);
+										SetValue($this->GetIDForIdent("CODE"), 0);
+									break;
+
+									case 2:
+										SetValue($securityEnterPasswordId, $securityPassword);
+										SetValue($securityModus, 1);
+										SetValue($this->GetIDForIdent("CODE"), 0);
+									break;
+
+									case 3:
+										SetValue($securityEnterPasswordId, $securityPassword);
+										SetValue($securityModus, 3);
+										SetValue($this->GetIDForIdent("CODE"), 0);
+									break;
+								}*/
 
 							//$this->SetTimerInterval("SelectModeTimer", 5);
 						}
@@ -116,37 +136,6 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->SetTimerInterval("ClearCodeTimer", 0);
 	}
 
-	public function SelectMode() {
-		$this->SetTimerInterval("SelectModeTimer", 0);$mode = GetValue($this->GetIDForIdent("CODE"));
-
-		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
-		$securityInstanceId = $securityInstance[0];
-		$securityPassword = IPS_GetProperty($securityInstanceId, "Password");
-		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
-		$securityModus = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-		$mode = GetValue($this->GetIDForIdent("CODE"));
-
-			switch($mode) {
-				case 1:
-					SetValue($securityEnterPasswordId, $securityPassword);
-					SetValue($securityModus, 0);
-					SetValue($this->GetIDForIdent("CODE"), 0);
-				break;
-
-				case 2:
-					SetValue($securityEnterPasswordId, $securityPassword);
-					SetValue($securityModus, 1);
-					SetValue($this->GetIDForIdent("CODE"), 0);
-				break;
-
-				case 3:
-					SetValue($securityEnterPasswordId, $securityPassword);
-					SetValue($securityModus, 3);
-					SetValue($this->GetIDForIdent("CODE"), 0);
-				break;
-			}
-	}
 
 	/* 
 		Um beim MaxFlex eine LED einzuschalten. Funktioniert nur wen der MaxFlex eine Stromspeisung beseitzt.
