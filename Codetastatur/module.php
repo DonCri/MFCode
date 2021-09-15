@@ -161,7 +161,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->SetTimerInterval("ThirdLEDoff", 0);
 	}
 
-	public function TurnOffSecondtLED() {
+	public function TurnOffSecondLED() {
 		$this->SetLED(1);
 		$this->SetTimerInterval("FirstLEDoff", 0);
 		$this->SetTimerInterval("SecondLEDoff", 0);
