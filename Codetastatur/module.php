@@ -68,6 +68,7 @@ class MaxFlexCodepanel extends IPSModule {
 							SetValue($securityEnterPasswordId, $securityPassword);
 							SetValue($securityModus, 0);
 							SetValue($this->GetIDForIdent("CODE"), 0);
+							SetValue($this->GetIDForIdent("CODEOK"), false);
 						} else{
 							$typedCode .= 1;
 							SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -79,6 +80,7 @@ class MaxFlexCodepanel extends IPSModule {
 							SetValue($securityEnterPasswordId, $securityPassword);
 							SetValue($securityModus, 1);
 							SetValue($this->GetIDForIdent("CODE"), 0);
+							SetValue($this->GetIDForIdent("CODEOK"), false);
 						} else{
 							$typedCode .= 2;
 							SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -90,6 +92,7 @@ class MaxFlexCodepanel extends IPSModule {
 							SetValue($securityEnterPasswordId, $securityPassword);
 							SetValue($securityModus, 2);
 							SetValue($this->GetIDForIdent("CODE"), 0);
+							SetValue($this->GetIDForIdent("CODEOK"), false);
 						} else{
 							$typedCode .= 3;
 							SetValue($this->GetIDForIdent("CODE"), $typedCode);
