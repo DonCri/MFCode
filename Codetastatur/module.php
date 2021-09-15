@@ -2,6 +2,10 @@
 
 class MaxFlexCodepanel extends IPSModule {
 	
+	const LED_OFF = 0;
+	const LED_ON = 1;
+	const LED_BLINK = 2;
+
 	public function Create(){
 		//Never delete this line!
 		parent::Create();
@@ -16,7 +20,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
-		$this->RegisterTimer("wrongCodeTimer", 0, 'BRELAG_TurnOffLED($_IPS[\'TARGET\'], 7);');
+		$this->RegisterTimer("wrongCodeTimer", 0, 'BRELAG_ResetWronPWLED($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 	}
@@ -67,9 +71,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 0);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								$this->TurnOnLED(1);
-								$this->TurnOffLED(2);
-								$this->TurnOffLED(3);
+								$this->SwitchLED(1, self::LED_ON);
+								$this->SwitchLED(2, self::LED_OFF);
+								$this->SwitchLED(3, self::LED_OFF);
 							} else{
 								$typedCode .= 1;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -82,9 +86,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 1);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								$this->TurnOnLED(2);
-								$this->TurnOffLED(1);
-								$this->TurnOffLED(3);
+								$this->SwitchLED(2, self::LED_ON);
+								$this->SwitchLED(1, self::LED_OFF);
+								$this->SwitchLED(3, self::LED_OFF);
 							} else{
 								$typedCode .= 2;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -97,9 +101,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 2);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								$this->TurnOnLED(3);
-								$this->TurnOffLED(1);
-								$this->TurnOffLED(2);
+								$this->SwitchLED(3, self::LED_ON);
+								$this->SwitchLED(1, self::LED_OFF);
+								$this->SwitchLED(2, self::LED_OFF);
 							} else{
 								$typedCode .= 3;
 								SetValue($this->GetIDForIdent("CODE"), $typedCode);
@@ -153,7 +157,11 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->SetTimerInterval("ClearCodeTimer", 0);
 	}
 
-	public function TurnOffLED($LEDnumber) {
+	public function SwitchLED($LEDnumber, $State) {
+
+		$this->SetLED($LEDnumber - 1 + $State * 8);
+
+		/*
 		switch($LEDnumber) {
 			case 1:
 				$this->SetLED(0);
@@ -175,9 +183,10 @@ class MaxFlexCodepanel extends IPSModule {
 				$this->SetLED(6);
 				$this->SetTimerInterval("wrongCodeTimer", 0);
 			break;
-		}
+		}*/
 	}
 
+	/*
 	public function TurnOnLED($LEDnumber) {
 		switch($LEDnumber) {
 			case 1:
@@ -193,10 +202,16 @@ class MaxFlexCodepanel extends IPSModule {
 			break;
 		}
 	}
+	*/
 
 	public function wrongCode() {
 		$this->SetLED(22);
-		$this->SetTimerInterval("wrongCodeTimer", 3000);
+		$this->SetTimerInterval("wrongCodeTimer", 2000);
+	}
+
+	public function ResetWronPWLED() {
+		$this->SetTimerInterval("wrongCodeTimer", 0);
+		$this->SwitchLED(7, self::LED_OFF);
 	}
 
 	/* 
