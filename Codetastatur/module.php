@@ -44,6 +44,7 @@ class MaxFlexCodepanel extends IPSModule {
 		
 		$this->SendDebug("BufferIn", print_r($data->Values, true), 0);
 		$id = $data->Values->ID;
+		$command = $data->Values->Command;
 
 		if($id == $this->ReadPropertyInteger("ID")) {
 			// Hole das Passwort vom Alarmanlage Modul.
@@ -58,77 +59,82 @@ class MaxFlexCodepanel extends IPSModule {
 				$timerintervalMillisecond = $timerintervalSecond * 1000;
 
 			$value = $data->Values->Value;
-			if($value > 0) {
-				$this->SetTimerInterval("ClearCodeTimer", $timerintervalMillisecond);
-				$typedCode = GetValue($this->GetIDForIdent("CODE"));
-				$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
-				switch($value) {
-					case 1:
-						if($codeOK) {
-							SetValue($securityEnterPasswordId, $securityPassword);
-							SetValue($securityModus, 0);
+
+			if($command == 42) {
+				if($value > 0) {
+					$this->SetTimerInterval("ClearCodeTimer", $timerintervalMillisecond);
+					$typedCode = GetValue($this->GetIDForIdent("CODE"));
+					$codeOK = GetValue($this->GetIDForIdent("CODEOK"));
+					switch($value) {
+						case 1:
+							if($codeOK) {
+								SetValue($securityEnterPasswordId, $securityPassword);
+								SetValue($securityModus, 0);
+								SetValue($this->GetIDForIdent("CODE"), 0);
+								SetValue($this->GetIDForIdent("CODEOK"), false);
+							} else{
+								$typedCode .= 1;
+								SetValue($this->GetIDForIdent("CODE"), $typedCode);
+							}
+						break;
+	
+						case 2:
+							if($codeOK) {
+								SetValue($securityEnterPasswordId, $securityPassword);
+								SetValue($securityModus, 1);
+								SetValue($this->GetIDForIdent("CODE"), 0);
+								SetValue($this->GetIDForIdent("CODEOK"), false);
+							} else{
+								$typedCode .= 2;
+								SetValue($this->GetIDForIdent("CODE"), $typedCode);
+							}
+						break;
+	
+						case 4:
+							if($codeOK) {
+								SetValue($securityEnterPasswordId, $securityPassword);
+								SetValue($securityModus, 2);
+								SetValue($this->GetIDForIdent("CODE"), 0);
+								SetValue($this->GetIDForIdent("CODEOK"), false);
+							} else{
+								$typedCode .= 3;
+								SetValue($this->GetIDForIdent("CODE"), $typedCode);
+							}
+						break;
+	
+						case 8:
+							$typedCode .= 4;
+							SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						break;
+	
+						case 16:
+							$typedCode .= 5;
+							SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						break;
+	
+						case 32:
+							$typedCode .= 6;
+							SetValue($this->GetIDForIdent("CODE"), $typedCode);
+						break;
+	
+						case 64:
+							if($typedCode == $securityPassword) {
+								SetValue($this->GetIDForIdent("CODE"), 0);
+								SetValue($this->GetIDForIdent("CODEOK"), true);
+							}
+							
+						break;
+	
+						case 128:
 							SetValue($this->GetIDForIdent("CODE"), 0);
 							SetValue($this->GetIDForIdent("CODEOK"), false);
-						} else{
-							$typedCode .= 1;
-							SetValue($this->GetIDForIdent("CODE"), $typedCode);
-						}
-					break;
-
-					case 2:
-						if($codeOK) {
-							SetValue($securityEnterPasswordId, $securityPassword);
-							SetValue($securityModus, 1);
-							SetValue($this->GetIDForIdent("CODE"), 0);
-							SetValue($this->GetIDForIdent("CODEOK"), false);
-						} else{
-							$typedCode .= 2;
-							SetValue($this->GetIDForIdent("CODE"), $typedCode);
-						}
-					break;
-
-					case 4:
-						if($codeOK) {
-							SetValue($securityEnterPasswordId, $securityPassword);
-							SetValue($securityModus, 2);
-							SetValue($this->GetIDForIdent("CODE"), 0);
-							SetValue($this->GetIDForIdent("CODEOK"), false);
-						} else{
-							$typedCode .= 3;
-							SetValue($this->GetIDForIdent("CODE"), $typedCode);
-						}
-					break;
-
-					case 8:
-						$typedCode .= 4;
-						SetValue($this->GetIDForIdent("CODE"), $typedCode);
-					break;
-
-					case 16:
-						$typedCode .= 5;
-						SetValue($this->GetIDForIdent("CODE"), $typedCode);
-					break;
-
-					case 32:
-						$typedCode .= 6;
-						SetValue($this->GetIDForIdent("CODE"), $typedCode);
-					break;
-
-					case 64:
-						if($typedCode == $securityPassword) {
-							SetValue($this->GetIDForIdent("CODE"), 0);
-							SetValue($this->GetIDForIdent("CODEOK"), true);
-						}
-						
-					break;
-
-					case 128:
-						SetValue($this->GetIDForIdent("CODE"), 0);
-						SetValue($this->GetIDForIdent("CODEOK"), false);
-						$this->SetTimerInterval("ClearCodeTimer", 0);
-					break;
+							$this->SetTimerInterval("ClearCodeTimer", 0);
+						break;
+					}
 				}
 			}
+
+			
 		}
 	}
 
