@@ -187,13 +187,13 @@ class MaxFlexCodepanel extends IPSModule {
 			SetValue($this->GetIDForIdent("SECMODE"), GetValue($securityModus));
 			$LEDnumber = $securityModus + 1;
 			if($securityModus == 0) {
-				$this->SwitchLED($LEDnumber, 8);
+				$this->SwitchLED($LEDnumber, 1);
 			}
 			if($securityModus == 1) {
-				$this->SwitchLED($LEDnumber, 9);
+				$this->SwitchLED($LEDnumber, 1);
 			}
 			if($securityModus == 2) {
-				$this->SwitchLED($LEDnumber, 10);
+				$this->SwitchLED($LEDnumber, 1);
 			}
 		}
 	}
