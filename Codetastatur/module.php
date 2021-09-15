@@ -196,7 +196,7 @@ class MaxFlexCodepanel extends IPSModule {
 
 	public function wrongCode() {
 		$this->SetLED(22);
-		$this->SetTimerInterval("wrongCodeTimer", 5000);
+		$this->SetTimerInterval("wrongCodeTimer", 3000);
 	}
 
 	/* 
