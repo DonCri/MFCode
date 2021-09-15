@@ -67,7 +67,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(8);
+								IPS_Sleep(250);
 								$this->SetLED(1);
+								IPS_Sleep(250);
 								$this->SetLED(2);
 							} else{
 								$typedCode .= 1;
@@ -82,7 +84,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(0);
+								IPS_Sleep(250);
 								$this->SetLED(9);
+								IPS_Sleep(250);
 								$this->SetLED(2);
 							} else{
 								$typedCode .= 2;
@@ -97,7 +101,9 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
 								$this->SetLED(0);
+								IPS_Sleep(250);
 								$this->SetLED(1);
+								IPS_Sleep(250);
 								$this->SetLED(10);
 							} else{
 								$typedCode .= 3;
