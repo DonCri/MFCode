@@ -31,6 +31,10 @@ class MaxFlexCodepanel extends IPSModule {
 		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
 		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
 		
+		if(!$securityInstanceId) {
+			IPS_CreateInstance("{17433113-1A92-45B3-F250-B5E426040E64}");
+		}
+
 		$this->RegisterMessage($securityModusId, 10603 /* VM_UPDATE */);
 		
 	}
