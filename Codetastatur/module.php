@@ -6,12 +6,6 @@ class MaxFlexCodepanel extends IPSModule {
 	const LED_ON = 1;
 	const LED_BLINK = 2;
 
-	const SECURITY_GUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-	const SECURITY_INSTANCE = IPS_GetInstanceListByModuleID(self::SECURITY_GUID);
-	const SECURITY_INSTANCE_ID = self::SECURITY_INSTANCE[0];
-	const SECURITY_ENTER_PASSWORD_ID = IPS_GetObjectIDByIdent("Password", self::SECURITY_INSTANCE_ID);
-	const SECURITY_MODUS_ID = IPS_GetObjectIDByIdent("Mode", self::SECURITY_INSTANCE_ID);
-
 	public function Create(){
 		//Never delete this line!
 		parent::Create();
@@ -32,7 +26,13 @@ class MaxFlexCodepanel extends IPSModule {
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 
-		$this->RegisterMessage(self::SECURITY_MODUS_ID, 10603 /* VM_UPDATE */);
+		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+		$securityInstanceId = $securityInstance[0];
+		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
+		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
+
+		$this->RegisterMessage($securityModusId, 10603 /* VM_UPDATE */);
 	}
 
 	public function Destroy() {
