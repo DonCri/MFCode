@@ -73,7 +73,6 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 0);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								//SetValue($this->GetIDForIdent("SECMODE"), 0);
 								$this->SwitchLED(1, self::LED_ON);
 								$this->SwitchLED(2, self::LED_OFF);
 								$this->SwitchLED(3, self::LED_OFF);
@@ -89,7 +88,6 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 1);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								//SetValue($this->GetIDForIdent("SECMODE"), 1);
 								$this->SwitchLED(2, self::LED_ON);
 								$this->SwitchLED(1, self::LED_OFF);
 								$this->SwitchLED(3, self::LED_OFF);
@@ -105,7 +103,6 @@ class MaxFlexCodepanel extends IPSModule {
 								SetValue($securityModus, 2);
 								SetValue($this->GetIDForIdent("CODE"), 0);
 								SetValue($this->GetIDForIdent("CODEOK"), false);
-								//SetValue($this->GetIDForIdent("SECMODE"), 2);
 								$this->SwitchLED(3, self::LED_ON);
 								$this->SwitchLED(1, self::LED_OFF);
 								$this->SwitchLED(2, self::LED_OFF);
