@@ -7,10 +7,10 @@ class MaxFlexCodepanel extends IPSModule {
 	const LED_BLINK = 2;
 
 	const SECURITY_GUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-	const SECURITY_INSTANCE = IPS_GetInstanceListByModuleID($SECURITY_GUID);
-	const SECURITY_INSTANCE_ID = $SECURITY_INSTANCE[0];
-	const SECURITY_ENTER_PASSWORD_ID = IPS_GetObjectIDByIdent("Password", $SECURITY_INSTANCE_ID);
-	const SECURITY_MODUS_ID = IPS_GetObjectIDByIdent("Mode", $SECURITY_INSTANCE_ID);
+	const SECURITY_INSTANCE = IPS_GetInstanceListByModuleID(self::SECURITY_GUID);
+	const SECURITY_INSTANCE_ID = self::SECURITY_INSTANCE[0];
+	const SECURITY_ENTER_PASSWORD_ID = IPS_GetObjectIDByIdent("Password", self::SECURITY_INSTANCE_ID);
+	const SECURITY_MODUS_ID = IPS_GetObjectIDByIdent("Mode", self::SECURITY_INSTANCE_ID);
 
 	public function Create(){
 		//Never delete this line!
