@@ -240,7 +240,7 @@ class MaxFlexCodepanel extends IPSModule {
 		$mode = GetValue($this->GetIDForIdent("SECMODE"));
 
         switch ($SenderID) {
-            case $SecurityModusID:
+            case $SecurityModusId:
                 switch($securityModus) {
 					case 0:
 						$this->SwitchLED($LEDnumber, self::LED_ON);
