@@ -231,7 +231,11 @@ class MaxFlexCodepanel extends IPSModule {
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
-        $SecurityModusID = self::SECURITY_MODUS_ID;
+        $securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+		$securityInstanceId = $securityInstance[0];
+		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
+		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
 		$securityModus = GetValue($securityModusId);
 		$mode = GetValue($this->GetIDForIdent("SECMODE"));
 
