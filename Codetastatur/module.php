@@ -25,23 +25,11 @@ class MaxFlexCodepanel extends IPSModule {
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
 
-		
-		
-		
-		if(!IPS_InstanceExists(IPS_GetInstanceListByModuleID("{17433113-1A92-45B3-F250-B5E426040E64}"))) {
-			$securityInstance = IPS_CreateInstance("{17433113-1A92-45B3-F250-B5E426040E64}");
-			$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-			$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
-			$securityInstanceId = $securityInstance[0];
-			$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-			$this->RegisterSecurityMode($securityModusId);
-		} else {
-			$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-			$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
-			$securityInstanceId = $securityInstance[0];
-			$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-			$this->RegisterSecurityMode($securityModusId);
-		}
+		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+		$securityInstanceId = $securityInstance[0];
+		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
+		$this->RegisterSecurityMode($securityModusId);
 		
 	}
 
