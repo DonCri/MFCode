@@ -28,14 +28,15 @@ class MaxFlexCodepanel extends IPSModule {
 		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
 		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
 		$securityInstanceId = $securityInstance[0];
-		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
-		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
 		
 		if(!$securityInstanceId) {
-			IPS_CreateInstance("{17433113-1A92-45B3-F250-B5E426040E64}");
+			$securityInstance = IPS_CreateInstance("{17433113-1A92-45B3-F250-B5E426040E64}");
+			$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
+			$this->RegisterSecurityMode($securityModusId);
+		} else {
+			$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
+			$this->RegisterSecurityMode($securityModusId);
 		}
-
-		$this->RegisterMessage($securityModusId, 10603 /* VM_UPDATE */);
 		
 	}
 
@@ -186,9 +187,6 @@ class MaxFlexCodepanel extends IPSModule {
 		$this->SwitchLED(7, self::LED_OFF);
 	}
 
-	/* 
-		Um beim MaxFlex eine LED einzuschalten. Funktioniert nur wen der MaxFlex eine Stromspeisung beseitzt.
-	*/
 	public function SetLED(int $Value){
 		$this->SendCommand(1, 43, $Value, 3);
 	}
@@ -237,6 +235,10 @@ class MaxFlexCodepanel extends IPSModule {
             break;
         }
     }
+
+	public function RegisterSecurityMode(int $ID) {
+		$this->RegisterMessage($ID, 10603 /* VM_UPDATE */);
+	}
 
 }
 
