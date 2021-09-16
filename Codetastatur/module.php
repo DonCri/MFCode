@@ -25,14 +25,6 @@ class MaxFlexCodepanel extends IPSModule {
 		//$this->RegisterTimer("checkSecurityMode", 15000, 'BRELAG_CheckSecurityMode($_IPS[\'TARGET\']);');
 
 		$this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
-
-		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
-		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
-		$securityInstanceId = $securityInstance[0];
-		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
-		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
-
-		$this->RegisterMessage($securityModusId, 10603 /* VM_UPDATE */);
 	}
 
 	public function Destroy() {
@@ -44,6 +36,14 @@ class MaxFlexCodepanel extends IPSModule {
 	public function ApplyChanges() {
 		//Never delete this line!
 		parent::ApplyChanges();
+
+		$securityGUID = "{17433113-1A92-45B3-F250-B5E426040E64}";
+		$securityInstance = IPS_GetInstanceListByModuleID($securityGUID);
+		$securityInstanceId = $securityInstance[0];
+		$securityEnterPasswordId = IPS_GetObjectIDByIdent("Password", $securityInstanceId);
+		$securityModusId = IPS_GetObjectIDByIdent("Mode", $securityInstanceId);
+
+		$this->RegisterMessage($securityModusId, 10603 /* VM_UPDATE */);
 
 	}
 
