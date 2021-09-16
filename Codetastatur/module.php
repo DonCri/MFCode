@@ -18,7 +18,7 @@ class MaxFlexCodepanel extends IPSModule {
 
 		$this->RegisterVariableInteger("CODE", "Code", "", 1);
 		$this->RegisterVariableBoolean("CODEOK", "Ist Code Ok?", "", 2);
-		$this->RegisterVariableString("SECMODE", "Aktueller Modus", "", 3);
+		$this->RegisterVariableInteger("SECMODE", "Aktueller Modus", "", 3);
 
 		$this->RegisterTimer("ClearCodeTimer", 0, 'BRELAG_SetClearCodeTimer($_IPS[\'TARGET\']);');
 		$this->RegisterTimer("wrongCodeTimer", 0, 'BRELAG_ResetWronPWLED($_IPS[\'TARGET\']);');
@@ -186,14 +186,18 @@ class MaxFlexCodepanel extends IPSModule {
 		if($mode != $securityModus) {
 			SetValue($this->GetIDForIdent("SECMODE"), GetValue($securityModus));
 			$LEDnumber = $securityModus + 1;
-			if($securityModus == 0) {
-				$this->SwitchLED($LEDnumber, 1);
-			}
-			if($securityModus == 1) {
-				$this->SwitchLED($LEDnumber, 1);
-			}
-			if($securityModus == 2) {
-				$this->SwitchLED($LEDnumber, 1);
+			switch($securityModus) {
+				case 0:
+					$this->SwitchLED($LEDnumber, self::LED_ON);
+				break;
+
+				case 1:
+					$this->SwitchLED($LEDnumber, self::LED_ON);
+				break;
+				
+				case 2:
+					$this->SwitchLED($LEDnumber, self::LED_ON);
+				break;
 			}
 		}
 	}
